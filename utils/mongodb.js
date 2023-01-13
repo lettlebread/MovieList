@@ -42,6 +42,7 @@ const getDbUri = async () => {
       break
     case "prd":
       password = process.env.MONGO_PASSWORD
+      //password = "DVPX0Ec9jesP0PcV"
       break
     default:
       throw Error('invalid env')

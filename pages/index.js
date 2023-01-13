@@ -7,7 +7,7 @@ import { getMovieList } from '../controllers/movie.js'
 
 export async function getServerSideProps() {
   let movies = await getMovieList()
-  return { props: { movies: JSON.parse(JSON.stringify(movies)) } };
+  return { props: { movies } };
 }
 
 function Home(props) {

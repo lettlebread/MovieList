@@ -4,11 +4,11 @@ const getMovieList = async () => {
   try {
     let movies = await findCollectionDoc("movies", {}, false)
 
-    movies.map((data) => {
+    /*movies.map((data) => {
       data._id = data._id.toString()
-    })
+    })*/
 
-    return movies
+    return JSON.parse(JSON.stringify(movies))
   } catch (e) {
     console.log("get movie data failed with error", e)
   }
