@@ -1,15 +1,15 @@
 const { MongoClient, ObjectId } = require('mongodb')
 const fs = require('fs')
-const path = require("path");
+const path = require('path');
 
 var mongodbClient;
 var mongo;
 
 const getMongo = async () => {
-  if (typeof mongo === "undefined") {
+  if (typeof mongo === 'undefined') {
     try {
       const mongoClient = await getMongoClient();
-      mongo = mongoClient.db("netskope_test");
+      mongo = mongoClient.db('netskope_test');
     } catch (err) {
       throw err;
     }
@@ -19,7 +19,7 @@ const getMongo = async () => {
 };
 
 const getMongoClient = async () => {
-  if (typeof mongodbClient === "undefined") {
+  if (typeof mongodbClient === 'undefined') {
     try {
       const uri = await getDbUri();
       mongodbClient = await MongoClient.connect(uri, {
@@ -37,12 +37,11 @@ const getDbUri = async () => {
   let password
 
   switch(process.env.ENV) {
-    case "dev":
-      password = fs.readFileSync(path.resolve("dev-keys/mongo.key")).toString()
+    case 'dev':
+      password = fs.readFileSync(path.resolve('dev-keys/mongo.key')).toString()
       break
-    case "prd":
+    case 'prd':
       password = process.env.MONGO_PASSWORD
-      //password = "DVPX0Ec9jesP0PcV"
       break
     default:
       throw Error('invalid env')
@@ -91,18 +90,18 @@ const insertCollectionDoc = async (collectionName, data) => {
 
 function createQueryObj(query) {
   try {
-    if (typeof query === "string") {
+    if (typeof query === 'string') {
       return { _id: ObjectId(query) };
     }
 
-    if (typeof query._id === "string") {
+    if (typeof query._id === 'string') {
       query._id = ObjectId(query._id);
     }
 
     delete query.id;
     return query;
   } catch (e) {
-    throw { code: 404, error: "invalid object id" };
+    throw { code: 404, error: 'invalid object id' };
   }
 }
 

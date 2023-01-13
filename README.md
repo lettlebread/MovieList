@@ -1,11 +1,12 @@
 # Execution
 ## run container
-please forward to port 3000 for the container
+* please pull image from lettlebread/movie_list
+* forward port 3000 to the container
 
 ## access web page
 please use follow url
 ```
-http://<server doamin>:<expose port>
+http://<server doamin>:<port>
 ```
 
 ## build image

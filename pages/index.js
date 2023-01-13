@@ -1,27 +1,25 @@
-import React, { useState } from "react";
+import { Box } from '@mui/system'
+import React, { useState } from 'react'
 
 import InfoDialog from '../components/InfoDialog'
-import MovieList from "../components/MovieList";
+import MovieList from '../components/MovieList'
+import TitleBar from '../components/TitleBar'
 
 import { getMovieList } from '../controllers/movie.js'
 
 export async function getServerSideProps() {
   let movies = await getMovieList()
-  return { props: { movies } };
+  return { props: { movies } }
 }
 
 function Home(props) {
-  const [movies, setMovies] = useState(props.movies)
-  const [infoOpen, setInfoOpen] = useState(false)
-  const [infoData, setInfoData] = useState({
-    Film: '',
-    Genre: ''
-  })
-
+  const [ movies, setMovies ] = useState(props.movies)
+  const [ infoOpen, setInfoOpen ] = useState(false)
+  const [ infoData, setInfoData ] = useState({})
 
   function setSearch(keyWord) {
     setMovies(props.movies.filter((movie) => {
-      return movie.Film.includes(keyWord)
+      return movie.Film.toLowerCase().includes(keyWord)
     }))
   }
 
@@ -31,16 +29,11 @@ function Home(props) {
 
   return (
     <>
-      <h1>Movies</h1>
-      <div>
-        <input onChange={(e)=>setSearch(e.target.value)}></input>
-      </div>
-      <div>
+      <Box sx={{background:'white'}}>
+        <TitleBar setSearch={setSearch}></TitleBar>
         <MovieList movies={movies} setInfoOpen={setInfoOpen} setInfoData={setInfoData}></MovieList>
-      </div>
-      <div>
         <InfoDialog handleClose={handleClose} infoData={infoData} infoOpen={infoOpen}></InfoDialog>
-      </div>
+      </Box>
     </>
   )
 }
